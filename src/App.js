@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navbar from './components/navbar/navbar.component';
 import Directory from './components/directory/directory.component';
-import products from './constant/products';
+import { CategoryContext } from './context/category-context';
 
 function App() {
+    const { listOfProducts } = useContext(CategoryContext);
+
     return (
         <>
             <Navbar />
 
             <Directory 
-                products={products} 
+                products={listOfProducts} 
             />
         </>
     );

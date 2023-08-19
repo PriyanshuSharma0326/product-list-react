@@ -1,27 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './search-filter.styles.scss';
-import products from '../../constant/products';
+import { CategoryContext } from '../../context/category-context';
 
 function SearchFilter() {
-    let uniqueCategories = [...new Set(products.map(product => product.productCategory))];
+    const { categories, selectedCategory,setSelectedCategory } = useContext(CategoryContext);
 
-    const categories = uniqueCategories.map((uniqueCategory, index) => {
-        return {
-            id: index,
-            productCategory: uniqueCategory
-        }
-    });
+    const handleCategorySelection = (e) => {
+        setSelectedCategory(e.target.value);
+    }
 
     return (
         <div className='search-filter'>
-            <select name="" id="">
+            <select 
+                name="" 
+                id="" 
+                value={selectedCategory} 
+                onChange={handleCategorySelection}
+            >
                 <option value="">--Select a category--</option>
                 {categories.map(category => 
-                    <option key={category.id} value={category.productCategory}>{category.productCategory}</option>
+                    <option 
+                        key={category.id} 
+                        value={category.productCategory} 
+                    >
+                        {category.productCategory}
+                    </option>
                 )}
             </select>
         </div>
-    )
+    );
 }
 
 export default SearchFilter;

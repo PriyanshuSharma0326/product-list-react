@@ -1,9 +1,38 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
+import products from "../constant/products";
 
-const CategoryContext = createContext();
+export const CategoryContext = createContext();
 
 export const CategoryContextProvider = ({ children }) => {
-    const contextValue = {};
+    const [listOfProducts, setListOfProducts] = useState(products);
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    let uniqueCategories = [...new Set(products.map(product => product.productCategory))];
+
+    const categories = uniqueCategories.map((uniqueCategory, index) => {
+        return {
+            id: index,
+            productCategory: uniqueCategory
+        }
+    });
+
+    useEffect(() => {
+        const changeList = () => {
+            let list = products.filter(item => item.productCategory === selectedCategory);
+            setListOfProducts(list);
+        }
+
+        selectedCategory !== '' && changeList();
+    }, [selectedCategory]);
+
+    const contextValue = { 
+        categories,
+        listOfProducts,
+        setListOfProducts,
+        selectedCategory,
+        setSelectedCategory,
+    };
 
     return (
         <CategoryContext.Provider value={ contextValue }>
