@@ -1,0 +1,20 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 10rem;
+    background-color: var(--dark);
+
+    .nav-logo {
+        width: 2.75rem;
+    }
+
+    .nav-title {
+        margin-left: 1rem;
+        margin-right: auto;
+        font-size: 1.5rem;
+        color: var(--white);
+    }
+
+    box-shadow: 0 0 12px var(--dark);
+}
