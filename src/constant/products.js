@@ -2,7 +2,7 @@ const products = [
     {
         id: 1,
         productName: 'iPhone 13 Pro',
-        productImageURL: '',
+        productImageURL: '/assets/item_1.png',
         productCategory: 'Mobile Phones',
         productPrice: '$1099',
         productRating: ''

@@ -19,11 +19,15 @@ export const CategoryContextProvider = ({ children }) => {
 
     useEffect(() => {
         const changeList = () => {
+            if(selectedCategory === '') {
+                setListOfProducts(products);
+                return;
+            }
             let list = products.filter(item => item.productCategory === selectedCategory);
             setListOfProducts(list);
         }
 
-        selectedCategory !== '' && changeList();
+        changeList();
     }, [selectedCategory]);
 
     const contextValue = { 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './list-item.styles.scss';
 
-function CategoryItem({ productName, productImageURL, productPrice, productCategory }) {
+function ListItem({ productName, productImageURL, productPrice, productCategory }) {
     return (
         <div className='category-container'>
             <img className="background-image" src={productImageURL} alt={productName} />
@@ -17,4 +17,4 @@ function CategoryItem({ productName, productImageURL, productPrice, productCateg
     );
 }
 
-export default CategoryItem;
+export default ListItem;
