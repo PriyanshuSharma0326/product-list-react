@@ -1,10 +1,11 @@
 .categories-container {
-    width: 85%;
+    width: fit-content;
     margin: 0 auto;
     margin-top: 2.5rem;
 
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: 2rem;
+    column-gap: 3rem;
+    place-items: center;
     row-gap: 2rem;
 }

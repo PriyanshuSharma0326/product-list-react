@@ -121,7 +121,7 @@ const products = [
     },
     {
         id: 16,
-        productName: 'Non-Stick Cookware Set',
+        productName: 'Cookware Set',
         productImageURL: '/assets/cookware_set.png',
         productCategory: 'Kitchen',
         productPrice: '89',

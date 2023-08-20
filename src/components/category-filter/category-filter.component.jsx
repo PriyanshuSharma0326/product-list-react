@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import './search-filter.styles.scss';
+import './category-filter.styles.scss';
 import { CategoryContext } from '../../context/category-context';
 
-function SearchFilter() {
-    const { categories, selectedCategory,setSelectedCategory } = useContext(CategoryContext);
+function CategoryFilter() {
+    const { categories, selectedCategory, setSelectedCategory } = useContext(CategoryContext);
 
     const handleCategorySelection = (e) => {
         setSelectedCategory(e.target.value);
@@ -31,4 +31,4 @@ function SearchFilter() {
     );
 }
 
-export default SearchFilter;
+export default CategoryFilter;

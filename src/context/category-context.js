@@ -8,6 +8,10 @@ export const CategoryContextProvider = ({ children }) => {
 
     const [selectedCategory, setSelectedCategory] = useState('');
 
+    const [searchInputValue, setSearchInputValue] = useState('');
+
+    const [priceOrder, setPriceOrder] = useState('');
+
     let uniqueCategories = [...new Set(products.map(product => product.productCategory))];
 
     const categories = uniqueCategories.map((uniqueCategory, index) => {
@@ -17,18 +21,52 @@ export const CategoryContextProvider = ({ children }) => {
         }
     });
 
+    const sortPrice = (productsList) => {
+        if(priceOrder === '') {
+            return productsList;
+        }
+        if(priceOrder === 'asc') {
+            let list = [...productsList].sort((a, b) =>
+                Number(a.productPrice) - Number(b.productPrice)
+            );
+            return list;
+        }
+        else if(priceOrder === 'desc') {
+            let list = [...productsList].sort((a, b) =>
+                Number(b.productPrice) - Number(a.productPrice)
+            );
+            return list;
+        }
+    }
+
     useEffect(() => {
         const changeList = () => {
-            if(selectedCategory === '') {
+            if(selectedCategory === '' && searchInputValue === '') {
                 setListOfProducts(products);
                 return;
             }
-            let list = products.filter(item => item.productCategory === selectedCategory);
+            let list = products.filter(item => {
+                return searchInputValue === '' ? 
+                item.productCategory === selectedCategory : 
+                (selectedCategory === '' ? item.productCategory.toLowerCase().includes(searchInputValue.toLowerCase()) || 
+                item.productName.toLowerCase().includes(searchInputValue.toLowerCase()) : 
+                (item.productCategory === selectedCategory) && (item.productCategory.toLowerCase().includes(searchInputValue.toLowerCase()) || 
+                item.productName.toLowerCase().includes(searchInputValue.toLowerCase())));
+            });
+            list = sortPrice(list);
             setListOfProducts(list);
         }
 
         changeList();
-    }, [selectedCategory]);
+    }, [selectedCategory, searchInputValue]);
+
+    useEffect(() => {
+        if(priceOrder !== '') {
+            let list = sortPrice(listOfProducts);
+            setListOfProducts(list);
+        }
+
+    }, [priceOrder]);
 
     const contextValue = { 
         categories,
@@ -36,6 +74,10 @@ export const CategoryContextProvider = ({ children }) => {
         setListOfProducts,
         selectedCategory,
         setSelectedCategory,
+        searchInputValue,
+        setSearchInputValue,
+        priceOrder,
+        setPriceOrder,
     };
 
     return (
