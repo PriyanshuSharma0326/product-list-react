@@ -12,6 +12,8 @@ export const CategoryContextProvider = ({ children }) => {
 
     const [priceOrder, setPriceOrder] = useState('');
 
+    const [ratingOrder, setRatingOrder] = useState('');
+
     let uniqueCategories = [...new Set(products.map(product => product.productCategory))];
 
     const categories = uniqueCategories.map((uniqueCategory, index) => {
@@ -39,6 +41,24 @@ export const CategoryContextProvider = ({ children }) => {
         }
     }
 
+    const sortRating = (productsList) => {
+        if(ratingOrder === '') {
+            return productsList;
+        }
+        if(ratingOrder === 'asc') {
+            let list = [...productsList].sort((a, b) =>
+                Number(a.productRating) - Number(b.productRating)
+            );
+            return list;
+        }
+        else if(ratingOrder === 'desc') {
+            let list = [...productsList].sort((a, b) =>
+                Number(b.productRating) - Number(a.productRating)
+            );
+            return list;
+        }
+    }
+
     useEffect(() => {
         const changeList = () => {
             if(selectedCategory === '' && searchInputValue === '') {
@@ -54,6 +74,8 @@ export const CategoryContextProvider = ({ children }) => {
                 item.productName.toLowerCase().includes(searchInputValue.toLowerCase())));
             });
             list = sortPrice(list);
+            list = sortRating(list);
+
             setListOfProducts(list);
         }
 
@@ -68,6 +90,14 @@ export const CategoryContextProvider = ({ children }) => {
 
     }, [priceOrder]);
 
+    useEffect(() => {
+        if(ratingOrder !== '') {
+            let list = sortRating(listOfProducts);
+            setListOfProducts(list);
+        }
+
+    }, [ratingOrder]);
+
     const contextValue = { 
         categories,
         listOfProducts,
@@ -78,6 +108,8 @@ export const CategoryContextProvider = ({ children }) => {
         setSearchInputValue,
         priceOrder,
         setPriceOrder,
+        ratingOrder,
+        setRatingOrder,
     };
 
     return (

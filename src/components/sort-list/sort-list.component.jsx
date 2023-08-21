@@ -5,9 +5,12 @@ import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { CategoryContext } from '../../context/category-context';
 
 function SortList() {
-    const { priceOrder, setPriceOrder } = useContext(CategoryContext);
+    const { priceOrder, setPriceOrder, ratingOrder, setRatingOrder } = useContext(CategoryContext);
 
     const handlePriceSort = () => {
+        if(ratingOrder !== '') {
+            setRatingOrder('');
+        }
         if(priceOrder === '') {
             setPriceOrder('asc');
         }
@@ -16,6 +19,21 @@ function SortList() {
         }
         else if(priceOrder === 'desc') {
             setPriceOrder('asc');
+        }
+    }
+
+    const handleRatingSort = () => {
+        if(priceOrder !== '') {
+            setPriceOrder('');
+        }
+        if(ratingOrder === '') {
+            setRatingOrder('asc');
+        }
+        else if(ratingOrder === 'asc') {
+            setRatingOrder('desc');
+        }
+        else if(ratingOrder === 'desc') {
+            setRatingOrder('asc');
         }
     }
 
@@ -28,8 +46,10 @@ function SortList() {
                 <FontAwesomeIcon icon={faArrowDown} className='icon' />)}
             </button>
 
-            <button className="rating-sort">
-                Rating <FontAwesomeIcon icon={faArrowDown} className='icon' />
+            <button className="rating-sort" onClick={handleRatingSort}>
+                Rating {ratingOrder === '' ? '' : 
+                (ratingOrder === 'asc' ? <FontAwesomeIcon icon={faArrowUp} className='icon' /> : 
+                <FontAwesomeIcon icon={faArrowDown} className='icon' />)}
             </button>
         </div>
     )
