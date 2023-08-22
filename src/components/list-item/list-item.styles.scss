@@ -15,6 +15,11 @@
         height: 220px;
         border-radius: 1rem;
         box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+
+        @media (max-width: 426px) {
+            width: 250px;
+            height: 250px;
+        }
     }
 
     &:hover {
@@ -32,6 +37,10 @@
             font-size: 1.25rem;
             text-align: center;
             font-weight: 700;
+
+            @media (max-width: 426px) {
+                font-size: 1.35rem;
+            }
         }
 
         .category {
@@ -46,6 +55,10 @@
 
             span {
                 font-weight: 700;
+            }
+
+            @media (max-width: 426px) {
+                font-size: 1.15rem;
             }
         }
     }
